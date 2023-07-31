@@ -1,6 +1,8 @@
 #Dockerfile para SMTP e IMAP
 FROM ubuntu:latest
 
+#WORKDIR /app
+
 RUN apt-get update \
     && apt-get install -y \
     postfix \
@@ -13,9 +15,12 @@ RUN apt-get update \
 
 RUN apt-get upgrade -y
 
-COPY email_00.sh .
+
+COPY email_00.sh  /etc/init.d/
 RUN ./email_00.sh
 COPY users.sh .
+
+RUN chmod 755 /etc/init.d/email_00.sh
 
 COPY /imap/10-auth.conf /etc/dovecot/conf.d/10-auth.conf
 COPY /imap/10-mail.conf /etc/dovecot/conf.d/10-mail.conf
@@ -24,6 +29,6 @@ COPY /imap/dovecot.conf /etc/dovecot/dovecot.conf
 
 COPY /smtp/main.cf /etc/postfix/main.cf
 
-EXPOSE 25 110 143 993 995
+EXPOSE 25 110 143 993 995docker
 
 CMD tail -F /dev/null

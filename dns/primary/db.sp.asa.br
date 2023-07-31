@@ -18,3 +18,11 @@ ns1	    IN	A	106.84.1.15
 mail	IN	A	106.84.1.15
 www	IN	CNAME	ns1
 ;ns2	IN	A	secondary
+;
+smtp		IN	CNAME	mail
+imap		IN	CNAME	mail
+pop	 	    IN	CNAME	mail
+;
+portal		IN 	CNAME	www
+intranet	IN 	CNAME 	www
+webmail		IN	CNAME 	www
