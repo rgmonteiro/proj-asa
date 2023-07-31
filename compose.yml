@@ -1,0 +1,70 @@
+services:
+  web01:
+    build:
+      context: ./
+      dockerfile: site1/Dockerfile
+    image: web01
+    container_name: web01
+    networks:
+      - asa-network
+  web02:
+    build:
+      context: ./
+      dockerfile: site2/Dockerfile
+    image: web02
+    container_name: web02
+    networks:
+      - asa-network
+  web03:
+    build:
+      context: ./
+      dockerfile: site3/Dockerfile
+    image: web03
+    container_name: web03
+    networks:
+      - asa-network
+  proxy:
+    build:
+      context: ./
+      dockerfile: proxy/Dockerfile
+    image: proxy
+    container_name: proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - web01
+      - web02
+      - web03
+    networks:
+      - asa-network
+  dns:
+    build: ./dns
+    image: dns
+    container_name: ns1
+    restart: always
+    tty: true
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    volumes:
+      - ./dns/primary:/etc/bind
+    networks:
+      - sp-network
+  webmail:
+      build:
+        context: ./webmail
+      image: webmail
+      container_name: webmail
+      restart: always
+      tty: true
+      volumes:
+        - ./webmail/rainloop:/var/www/html/rainloop
+      depends_on:
+        - servermails
+      networks:
+        - asa-network
+
+#Docker Networks
+networks:
+  asa-network:
+    driver: bridge
