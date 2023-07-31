@@ -6,7 +6,7 @@ services:
     image: web01
     container_name: web01
     networks:
-      - asa-network
+      - sp-network
   web02:
     build:
       context: ./
@@ -14,7 +14,7 @@ services:
     image: web02
     container_name: web02
     networks:
-      - asa-network
+      - sp-network
   web03:
     build:
       context: ./
@@ -22,7 +22,7 @@ services:
     image: web03
     container_name: web03
     networks:
-      - asa-network
+      - sp-network
   proxy:
     build:
       context: ./
@@ -36,7 +36,7 @@ services:
       - web02
       - web03
     networks:
-      - asa-network
+      - sp-network
   dns:
     build: ./dns
     image: dns
@@ -62,7 +62,7 @@ services:
       - "993:993/tcp"
       - "995:995/tcp"
     networks:
-      - asa-network
+      - sp-network
   webmail:
       build:
         context: ./webmail
@@ -75,9 +75,9 @@ services:
       depends_on:
         - email
       networks:
-        - asa-network
+        - sp-network
 
 #Docker Networks
 networks:
-  asa-network:
+  sp-network:
     driver: bridge
