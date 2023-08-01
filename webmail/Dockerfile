@@ -10,6 +10,6 @@ RUN apt-get upgrade -y
 
 COPY email_01.sh .
 COPY email_02.sh .
-RUN ./email_02.sh
+#RUN ./email_02.sh
 
 CMD tail -F /dev/null

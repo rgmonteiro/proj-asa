@@ -1,26 +1,18 @@
 services:
-  web01:
+  intranet:
     build:
       context: ./
-      dockerfile: site1/Dockerfile
-    image: web01
-    container_name: web01
+      dockerfile: intranet/Dockerfile
+    image: intranet
+    container_name: intranet
     networks:
       - sp-network
-  web02:
+  portal:
     build:
       context: ./
-      dockerfile: site2/Dockerfile
-    image: web02
-    container_name: web02
-    networks:
-      - sp-network
-  web03:
-    build:
-      context: ./
-      dockerfile: site3/Dockerfile
-    image: web03
-    container_name: web03
+      dockerfile: portal/Dockerfile
+    image: portal
+    container_name: portal
     networks:
       - sp-network
   proxy:
@@ -32,9 +24,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - web01
-      - web02
-      - web03
+      - intranet
+      - portal
     networks:
       - sp-network
   dns:
