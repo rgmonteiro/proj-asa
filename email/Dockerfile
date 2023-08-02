@@ -20,7 +20,9 @@ COPY ./imap/10-mail.conf /etc/dovecot/conf.d/10-mail.conf
 COPY ./imap/10-master.conf /etc/dovecot/conf.d/10-master.conf
 COPY ./imap/dovecot.conf /etc/dovecot/dovecot.conf
 
+COPY ./smtp/mailname /etc
 COPY ./smtp/main.cf /etc/postfix/main.cf
+COPY ./smtp/master.cf /etc/postifix
 
 COPY email_00.sh .
 #RUN chmod +x email_00.sh
