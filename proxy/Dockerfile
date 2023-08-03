@@ -1,5 +1,5 @@
 FROM nginx:latest
 
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./proxy/nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./proxy/nginx/default.conf /etc/nginx/conf.d/default.conf
